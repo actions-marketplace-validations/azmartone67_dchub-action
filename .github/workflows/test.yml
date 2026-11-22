@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  columbus-verdict:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Data Center Power Index (DCPI)
+        id: dcpi
+        uses: ./
+        with:
+          market: columbus
+      - name: Assert verdict is present
+        env:
+          VERDICT: ${{ steps.dcpi.outputs.verdict }}
+        run: |
+          if [ -z "$VERDICT" ]; then
+            echo "expected a non-empty Data Center Power Index (DCPI) verdict"
+            exit 1
+          fi
+          echo "verdict is present"

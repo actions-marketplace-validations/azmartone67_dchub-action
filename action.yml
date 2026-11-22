@@ -1,0 +1,27 @@
+name: 'DC Hub Data Center Power Index (DCPI)'
+description: 'Look up a Data Center Power Index (DCPI) verdict or a data center facility from DC Hub.'
+author: 'DC Hub'
+inputs:
+  market:
+    description: 'Data Center Power Index (DCPI) market slug, for example columbus or atlanta.'
+    required: false
+  facility:
+    description: 'Optional facility query, passed to the public facilities search (city, provider, or market).'
+    required: false
+  base_url:
+    description: 'DC Hub origin. Leave at the default unless you are testing a staging host.'
+    required: false
+    default: 'https://dchub.cloud'
+outputs:
+  verdict:
+    description: 'BUILD, CAUTION or AVOID, when a market lookup returns a published verdict.'
+  as_of:
+    description: 'Evidence date returned by DC Hub.'
+  unpublished_market:
+    description: 'true when no published verdict is available for the requested market.'
+runs:
+  using: 'node24'
+  main: 'index.js'
+branding:
+  icon: 'zap'
+  color: 'purple'
